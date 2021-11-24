@@ -1,0 +1,111 @@
+{
+  "name": "fortinet-fortiguard-threat-intel-feed",
+  "label": "Fortinet FortiGuard Threat Intel Feed",
+  "version": "1.0.0",
+  "description": "FortiSOAR Integration with Fortiguard Premium Services for ingesting the Threat Intel Feeds and Signature Lookup",
+  "publisher": "Fortinet",
+  "cs_approved": true,
+  "cs_compatible": true,
+  "category": "CTI",
+  "icon_small_name": "small.png",
+  "icon_large_name": "large.png",
+  "ingestion_supported": true,
+  "ingestion_modes": [
+    "scheduled"
+  ],
+  "ingestion_preferences": {
+    "modules": ["threat_intel_feeds"]
+  },
+  "help_online": "",
+  "configuration": {
+    "fields": [
+      {
+        "title": "API Server URL",
+        "description": "URL of the FortiGuard Threat Intelligence Premium API server.",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "server_url",
+        "value": "https://premiumapi.fortinet.com",
+        "toolip": "URL of the FortiGuard Threat Intelligence Premium API server"
+      },
+      {
+        "title": "Access Token",
+        "description": "Access Token to download FortiGuard Threat Intelligence Feeds. Generate your access token from the Fortinet Developer Network Site Toolkit subscription. For more information, please visit https://www.fortiguard.com/premium-services.",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "password",
+        "name": "token",
+        "toolip": "Access Token to download FortiGuard Threat Intelligence Feeds. Generate your access token from the Fortinet Developer Network Site Toolkit subscription. For more information, please visit https://www.fortiguard.com/premium-services."
+      },
+      {
+        "title": "Verify SSL",
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not.",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "checkbox",
+        "name": "verify_ssl",
+        "value": true
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "ingest_feeds",
+      "title": "Fetch All Threat Intel Feeds Into FortiSOAR",
+      "description": "Pulls all the Fortiguard feeds and create them as Indicator records in FortiSOAR",
+      "enabled": true,
+      "category": "investigation",
+      "annotation": "threat_intel_feeds",
+      "parameters": [
+        {
+          "title": "Country Codes",
+          "description": "Comma separated list of country codes. Available values : all, ad, ae, af, ag, ai, al, am, ao, aq, ar, as, at, au, aw, ax, az, ba, bb, bd, be, bf, bg, bh, bi, bj, bl, bm, bn, bo, bq, br, bs, bt, bv, bw, by, bz, ca, cc, cd, cf, cg, ch, ci, ck, cl, cm, cn, co, cr, cu, cv, cw, cx, cy, cz, de, dj, dk, dm, do, dz, ec, ee, eg, eh, er, es, et, fi, fj, fk, fm, fo, fr, ga, gb, gd, ge, gf, gg, gh, gi, gl, gm, gn, gp, gq, gr, gs, gt, gu, gw, gy, hk, hm, hn, hr, ht, hu, id, ie, il, im, in, io, iq, ir, is, it, je, jm, jo, jp, ke, kg, kh, ki, km, kn, kp, kr, kw, ky, kz, la, lb, lc, li, lk, lr, ls, lt, lu, lv, ly, ma, mc, md, me, mf, mg, mh, mk, ml, mm, mn, mo, mp, mq, mr, ms, mt, mu, mv, mw, mx, my, mz, na, nc, ne, nf, ng, ni, nl, no, np, nr, nu, nz, om, pa, pe, pf, pg, ph, pk, pl, pm, pn, pr, ps, pt, pw, py, qa, re, ro, rs, ru, rw, sa, sb, sc, sd, se, sg, sh, si, sj, sk, sl, sm, sn, so, sr, ss, st, sv, sx, sy, sz, tc, td, tf, tg, th, tj, tk, tl, tm, tn, to, tr, tt, tv, tw, tz, ua, ug, um, us, uy, uz, va, vc, ve, vg, vi, vn, vu, wf, ws, ye, yt, za, zm, zw",
+          "tooltip": "Comma separated list of country codes. Available values : all, ad, ae, af, ag, ai, al, am, ao, aq, ar, as, at, au, aw, ax, az, ba, bb, bd, be, bf, bg, bh, bi, bj, bl, bm, bn, bo, bq, br, bs, bt, bv, bw, by, bz, ca, cc, cd, cf, cg, ch, ci, ck, cl, cm, cn, co, cr, cu, cv, cw, cx, cy, cz, de, dj, dk, dm, do, dz, ec, ee, eg, eh, er, es, et, fi, fj, fk, fm, fo, fr, ga, gb, gd, ge, gf, gg, gh, gi, gl, gm, gn, gp, gq, gr, gs, gt, gu, gw, gy, hk, hm, hn, hr, ht, hu, id, ie, il, im, in, io, iq, ir, is, it, je, jm, jo, jp, ke, kg, kh, ki, km, kn, kp, kr, kw, ky, kz, la, lb, lc, li, lk, lr, ls, lt, lu, lv, ly, ma, mc, md, me, mf, mg, mh, mk, ml, mm, mn, mo, mp, mq, mr, ms, mt, mu, mv, mw, mx, my, mz, na, nc, ne, nf, ng, ni, nl, no, np, nr, nu, nz, om, pa, pe, pf, pg, ph, pk, pl, pm, pn, pr, ps, pt, pw, py, qa, re, ro, rs, ru, rw, sa, sb, sc, sd, se, sg, sh, si, sj, sk, sl, sm, sn, so, sr, ss, st, sv, sx, sy, sz, tc, td, tf, tg, th, tj, tk, tl, tm, tn, to, tr, tt, tv, tw, tz, ua, ug, um, us, uy, uz, va, vc, ve, vg, vi, vn, vu, wf, ws, ye, yt, za, zm, zw",
+          "type": "text",
+          "name": "cc",
+          "value": "all",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Date",
+          "description": "Fetch feeds for a specific date. Defaults to today",
+          "tooltip": "Fetch feeds for a specific date. Defaults to today",
+          "type": "date",
+          "name": "date",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Pull only if feed modified after",
+          "description": "Optional. To be used in scheduled data ingestion to skip feeds ingested in the last successful pull",
+          "tooltip": "Optional. To be used in scheduled data ingestion to skip feeds ingested in the last successful pull",
+          "type": "datetime",
+          "name": "modified_after",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Record Creation Playbook IRI",
+          "description": "",
+          "type": "text",
+          "name": "create_pb_id",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+       "result": "",
+       "message": ""
+      }
+    }
+  ]
+}
