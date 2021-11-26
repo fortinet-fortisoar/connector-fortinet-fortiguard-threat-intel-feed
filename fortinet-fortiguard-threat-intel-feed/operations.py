@@ -87,7 +87,8 @@ def ingest_feeds(config, params, **kwargs):
 
     with open(filename_stix) as temp_read:
         data_json = json.load(temp_read)
-    
+        
+    os.remove(filename_stix)
     # check if the feed was already ingested
     if modified_after:
         # first object is identity type
@@ -109,9 +110,8 @@ def ingest_feeds(config, params, **kwargs):
             create_batch_records(deduped_indicators[start_index: start_index + BATCH_SIZE], create_pb_id, parent_wf, parent_step)
     except Exception as e:
         logger.exception("Import Failed")
-        os.remove(filename_stix)
         raise ConnectorError('Ingestion Failed with error: ' + str(e))            
-    os.remove(filename_stix)
+    
     return {"message": "Successfully triggered record creation playbooks"}
 
 def _check_health(config):
