@@ -17,7 +17,7 @@ def create_batch_records(records, create_pb_id, parent_wf, parent_step):
         if parent_wf:
             payload['parent_wf'] = parent_wf
         if parent_step:
-            payload['parent_id'] = parent_step
+            payload['step_id'] = parent_step
         make_request(url, method, body=payload)
     except Exception as e:
         logger.error("Failed to insert a batch of feeds with error: " + str(e))
