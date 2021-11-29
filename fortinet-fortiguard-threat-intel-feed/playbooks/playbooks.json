@@ -2,14 +2,16 @@
   "type": "workflow_collections",
   "data": [
     {
-      "@context": "/api/3/contexts/WorkflowCollection",
       "@type": "WorkflowCollection",
       "name": "Sample - Fortinet FortiGuard Threat Intel Feed - 1.0.0",
       "description": "Sample playbooks for \"Fortinet FortiGuard Threat Intel Feed\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
       "visible": true,
       "image": "/api/3/images/9d56bca3-f28a-4be6-9382-82b147d1b6bc",
+      "uuid": "6ba7cfdc-0d91-4cfc-a99d-c580c902c356",
       "id": 15,
+      "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
       "createDate": 1637323352.150344,
+      "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
       "modifyDate": 1637323352.150344,
       "recordTags": [],
       "deletedAt": null,
@@ -29,7 +31,7 @@
             "ingestedData"
           ],
           "synchronous": false,
-          "lastModifyDate": 1637759599,
+          "lastModifyDate": 1638191226,
           "collection": "/api/3/workflow_collections/6ba7cfdc-0d91-4cfc-a99d-c580c902c356",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/bc3afdb8-7792-4bc4-92cc-11354f376f56",
@@ -64,7 +66,7 @@
                 "confidence": "50",
                 "reputation": "Suspicious",
                 "reputation_map": "{\n\"Good\": {{\"IndicatorReputation\" | picklist(\"Good\", \"@id\")}},\n\"Suspicious\": {{\"IndicatorReputation\" | picklist(\"Suspicious\", \"@id\")}},\n\"Malicious\": {{\"IndicatorReputation\" | picklist(\"Malicious\", \"@id\")}},\n\"No Reputation Available\": {{\"IndicatorReputation\" | picklist(\"No Reputation Available\", \"@id\")}},\n\"TBD\": {{\"IndicatorReputation\" | picklist(\"TBD\", \"@id\")}}\n}",
-                "threat_intelligence_typeofindicator_map": "{\n\"domain-name\": {{\"IndicatorType\" | picklist(\"Domain\", \"@id\")}},\n\"url\": {{\"IndicatorType\" | picklist(\"URL\", \"@id\")}},\n\"ipv4-addr\": {{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}},\n\"ipv6-addr\": {{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}}\n}"
+                "threat_intelligence_typeofindicator_map": "{\n\"domain-name\": {{\"IndicatorType\" | picklist(\"Domain\", \"@id\")}},\n\"url\": {{\"IndicatorType\" | picklist(\"URL\", \"@id\")}},\n\"network-traffic\": {{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}},\n\"ipv4-addr\": {{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}},\n\"ipv6-addr\": {{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}}\n}"
               },
               "status": null,
               "top": "160",
@@ -131,8 +133,8 @@
                 "step_variables": []
               },
               "status": null,
-              "top": "380",
-              "left": "1340",
+              "top": "360",
+              "left": "1320",
               "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
               "uuid": "a71fb2f8-5402-4ce3-a087-65eb4b90cf2d",
               "id": 272
@@ -151,8 +153,8 @@
                 },
                 "resource": {
                   "tLP": "{% if vars.tlp %}{{ vars.tlp | resolveRange(vars.tlp_map)}}{% endif %}",
-                  "type": "{% if 'pattern' in vars.item %}{{ vars.item.pattern.split(\":value\")[0][1:] | resolveRange(vars.threat_intelligence_typeofindicator_map)}}{% endif %}",
-                  "value": "{%if vars.item.pattern %}{{ vars.item.pattern.split(\":value = \")[-1].split(\"]\")[0].strip()[1:-1] }}{% else %}Malicious Feed{% endif %}",
+                  "type": "{% if 'pattern' in vars.item %}{{ vars.item.pattern.split(\":\")[0][1:] | resolveRange(vars.threat_intelligence_typeofindicator_map)}}{% endif %}",
+                  "value": "{%if ':value' in vars.item.pattern %}{{ vars.item.pattern.split(\":value = \")[-1].split(\"]\")[0].strip()[1:-1] }}{% elif 'network-traffic' in vars.item.pattern %}{{ vars.item.pattern.split(\"network-traffic:src_ref.value =\")[-1].split(\"]\")[0].strip()[1:-1] + \":\" + vars.item.pattern.split(\"network-traffic:src_port =\")[1].split(\"AND\")[0].strip()}}{% else %}Malicious Feed{% endif %}",
                   "source": "FortiGuard Threat Intel Feed",
                   "created": "{% if vars.item.created %}{{arrow.get(vars.item.created).int_timestamp}}{% endif %}",
                   "modified": "{% if vars.item.modified %}{{arrow.get(vars.item.modified).int_timestamp}}{% endif %}",
@@ -160,22 +162,18 @@
                   "validFrom": "{% if vars.item.valid_from %}{{arrow.get(vars.item.valid_from).int_timestamp}}{% endif %}",
                   "confidence": "{% if vars.confidence %}{{ vars.confidence }}{% endif %}",
                   "reputation": "{% if vars.reputation %}{{ vars.reputation | resolveRange(vars.reputation_map)}}{% endif %}",
-                  "validUntil": "{% if vars.item.valid_until %}{{arrow.get(vars.item.valid_until).int_timestamp}}{% endif %}",
-                  "description": "<p>{{vars.item | json2html(row_fields=[], template=\"Generic\", display=\"Vertical\", styling=false, table_style={})}}</p>"
+                  "sourceData": "{{ vars.item }}",
+                  "validUntil": "{% if vars.item.valid_until %}{{arrow.get(vars.item.valid_until).int_timestamp}}{% endif %}"
                 },
                 "_showJson": false,
-                "operation": "Overwrite",
-                "collection": "/api/3/upsert/threat_intel_feeds",
+                "collection": "/api/ingest-feeds/threat_intel_feeds",
                 "__recommend": [],
-                "fieldOperation": {
-                  "recordTags": "Overwrite"
-                },
                 "step_variables": []
               },
               "status": null,
               "top": "420",
               "left": "800",
-              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
+              "stepType": "/api/3/workflow_step_types/7b221880-716b-4726-a2ca-5e568d330b3e",
               "uuid": "0da886a5-54ac-4263-8698-dbc5af2bf17e",
               "id": 273
             },
@@ -216,7 +214,7 @@
                 "step_variables": []
               },
               "status": null,
-              "top": "520",
+              "top": "500",
               "left": "1340",
               "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
               "uuid": "d27bd2a4-3749-4895-b112-9409fdb13563",
@@ -287,7 +285,7 @@
           "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
           "createDate": 1637323352.155826,
           "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1637759599.498221,
+          "modifyDate": 1638191226.532021,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
@@ -300,12 +298,12 @@
           "tag": null,
           "description": null,
           "isActive": true,
-          "debug": false,
+          "debug": true,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1637762371,
+          "lastModifyDate": 1637929216,
           "collection": "/api/3/workflow_collections/6ba7cfdc-0d91-4cfc-a99d-c580c902c356",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/9237320d-13e1-45be-8736-add794fc0023",
@@ -489,7 +487,7 @@
           "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
           "createDate": 1637323352.158254,
           "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1637762371.586376,
+          "modifyDate": 1637929216.018252,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
