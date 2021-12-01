@@ -108,6 +108,7 @@ def ingest_feeds(config, params, **kwargs):
         deduped_indicators = [x for x in filtered_indicators if [(x["type"], x["pattern"]) not in seen, seen.add((x["type"], x["pattern"]))][0]]
         for start_index in range(0, len(deduped_indicators), BATCH_SIZE):
             create_batch_records(deduped_indicators[start_index: start_index + BATCH_SIZE], create_pb_id, parent_wf, parent_step)
+        return {"message": "Succesfully triggered playbooks for creating feed records"}
     except Exception as e:
         logger.exception("Import Failed")
         raise ConnectorError('Ingestion Failed with error: ' + str(e))            
