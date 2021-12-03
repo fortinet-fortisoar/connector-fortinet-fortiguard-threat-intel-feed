@@ -61,7 +61,7 @@
               "description": null,
               "arguments": {
                 "tlp": "White",
-                "expiry": "",
+                "expiry": "None",
                 "tlp_map": "{\n\"Red\": {{\"TrafficLightProtocol\" | picklist(\"Red\", \"@id\")}},\n\"Amber\": {{\"TrafficLightProtocol\" | picklist(\"Amber\", \"@id\")}},\n\"Green\": {{\"TrafficLightProtocol\" | picklist(\"Green\", \"@id\")}},\n\"White\": {{\"TrafficLightProtocol\" | picklist(\"White\", \"@id\")}} \n}",
                 "confidence": "50",
                 "reputation": "Suspicious",
