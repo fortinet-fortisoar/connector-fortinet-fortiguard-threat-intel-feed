@@ -13,7 +13,7 @@ import arrow
 import os
 from datetime import datetime
 from connectors.core.connector import get_logger, ConnectorError
-from .utils import create_batch_records, sample_feeds
+from .utils import create_batch_records
 
 logger = get_logger('fortinet-fortiguard-threat-intel-feed')
 BATCH_SIZE = 2000
