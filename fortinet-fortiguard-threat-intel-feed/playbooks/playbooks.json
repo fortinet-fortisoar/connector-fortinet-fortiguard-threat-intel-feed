@@ -6,13 +6,13 @@
       "name": "Sample - Fortinet FortiGuard Threat Intel Feed - 1.0.0",
       "description": "Sample playbooks for \"Fortinet FortiGuard Threat Intel Feed\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
       "visible": true,
-      "image": "/api/3/images/4050e7d9-f3a5-451d-89a3-f63a5ce67198",
+      "image": "/api/3/images/d7f9d1c8-490c-4b74-8943-6d33dee24321",
       "uuid": "6ba7cfdc-0d91-4cfc-a99d-c580c902c356",
-      "id": 107,
+      "id": 15,
       "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-      "createDate": 1638795245.144373,
+      "createDate": 1639571286.785312,
       "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-      "modifyDate": 1638795245.144373,
+      "modifyDate": 1639571286.785312,
       "recordTags": [],
       "deletedAt": null,
       "workflows": [
@@ -23,7 +23,7 @@
           "aliasName": null,
           "tag": null,
           "description": null,
-          "isActive": true,
+          "isActive": false,
           "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
@@ -31,7 +31,7 @@
             "ingestedData"
           ],
           "synchronous": false,
-          "lastModifyDate": 1639481336,
+          "lastModifyDate": 1639659561,
           "collection": "/api/3/workflow_collections/6ba7cfdc-0d91-4cfc-a99d-c580c902c356",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/bc3afdb8-7792-4bc4-92cc-11354f376f56",
@@ -45,7 +45,7 @@
                   "input": {
                     "params": []
                   },
-                  "_configuration_schema": "[\n  {\n    \"title\": \"Confidence\",\n    \"name\": \"confidence\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default Confidence score to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 50,\n    \"validation\": {\n       \"minlength\": 0,\n       \"maxlength\": 100\n    }\n  },\n  {\n    \"title\": \"Reputation\",\n    \"name\": \"reputation\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default Reputation to be set for the feeds\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\"Good\", \"Suspicious\", \"Malicious\", \"No Reputation Available\", \"TBD\"],\n    \"value\": \"Suspicious\"\n  },\n  {\n    \"title\": \"TLP\",\n    \"name\": \"tlp\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default TLP to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\"Red\", \"Amber\", \"Green\", \"White\"],\n    \"value\": \"White\"\n  },\n  {\n    \"title\": \"Maximum Age (in days)\",\n    \"name\": \"expiry\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default age for the feeds. The indicator expires on 'valid_until' date unless a different expiry is specified here. If specified, the indicator will be marked expired on valid_from + expiry.\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true\n  }\n]"
+                  "_configuration_schema": "[\n  {\n    \"title\": \"Confidence\",\n    \"name\": \"confidence\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default Confidence score to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 50,\n    \"validation\": {\n       \"minlength\": 0,\n       \"maxlength\": 100\n    }\n  },\n  {\n    \"title\": \"Reputation\",\n    \"name\": \"reputation\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default Reputation to be set for the feeds\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\"Good\", \"Suspicious\", \"Malicious\", \"No Reputation Available\", \"TBD\"],\n    \"value\": \"Suspicious\"\n  },\n  {\n    \"title\": \"TLP\",\n    \"name\": \"tlp\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default TLP to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\"Red\", \"Amber\", \"Green\", \"White\"],\n    \"value\": \"White\"\n  },\n  {\n    \"title\": \"Maximum Age (in days)\",\n    \"name\": \"expiry\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default age for the feeds. The indicator expires on 'valid_until' date unless a different expiry is specified here. If specified, the indicator will be marked expired on valid_from + expiry.\",\n    \"required\": false,\n    \"value\": \"90\"\n    \"editable\": true,\n    \"visible\": true\n  }\n]"
                 }
               },
               "status": null,
@@ -53,27 +53,27 @@
               "left": "40",
               "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
               "uuid": "bc3afdb8-7792-4bc4-92cc-11354f376f56",
-              "id": 5036
+              "id": 267
             },
             {
               "@type": "WorkflowStep",
               "name": "Configuration",
               "description": null,
               "arguments": {
-                "tlp": "White",
+                "tlp": "Amber",
                 "expiry": "None",
-                "tlp_map": "{\n\"Red\": {{\"TrafficLightProtocol\" | picklist(\"Red\", \"@id\")}},\n\"Amber\": {{\"TrafficLightProtocol\" | picklist(\"Amber\", \"@id\")}},\n\"Green\": {{\"TrafficLightProtocol\" | picklist(\"Green\", \"@id\")}},\n\"White\": {{\"TrafficLightProtocol\" | picklist(\"White\", \"@id\")}} \n}",
+                "tlp_map": "{'Red': '{{\"TrafficLightProtocol\" | picklist(\"Red\", \"uuid\")}}','Amber':'{{\"TrafficLightProtocol\" | picklist(\"Amber\", \"uuid\")}}','Green':'{{\"TrafficLightProtocol\" | picklist(\"Green\",\"uuid\")}}','White': '{{\"TrafficLightProtocol\" | picklist(\"White\", \"uuid\")}}'}",
                 "confidence": "50",
                 "reputation": "Suspicious",
-                "reputation_map": "{\n\"Good\": {{\"IndicatorReputation\" | picklist(\"Good\", \"@id\")}},\n\"Suspicious\": {{\"IndicatorReputation\" | picklist(\"Suspicious\", \"@id\")}},\n\"Malicious\": {{\"IndicatorReputation\" | picklist(\"Malicious\", \"@id\")}},\n\"No Reputation Available\": {{\"IndicatorReputation\" | picklist(\"No Reputation Available\", \"@id\")}},\n\"TBD\": {{\"IndicatorReputation\" | picklist(\"TBD\", \"@id\")}}\n}",
-                "threat_intelligence_typeofindicator_map": "{\n\"domain-name\": {{\"IndicatorType\" | picklist(\"Domain\", \"@id\")}},\n\"url\": {{\"IndicatorType\" | picklist(\"URL\", \"@id\")}},\n\"network-traffic\": {{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}},\n\"ipv4-addr\": {{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}},\n\"ipv6-addr\": {{\"IndicatorType\" | picklist(\"IP Address\", \"@id\")}}\n}"
+                "reputation_map": "{'Good': '{{\"IndicatorReputation\" | picklist(\"Good\", \"uuid\")}}','Suspicious': '{{\"IndicatorReputation\" | picklist(\"Suspicious\", \"uuid\")}}','Malicious': '{{\"IndicatorReputation\" | picklist(\"Malicious\", \"uuid\")}}','No Reputation Available': '{{\"IndicatorReputation\" | picklist(\"No Reputation Available\", \"uuid\")}}','TBD': '{{\"IndicatorReputation\" | picklist(\"TBD\", \"uuid\")}}'}",
+                "threat_intelligence_typeofindicator_map": "{'domain-name': '{{\"IndicatorType\" | picklist(\"Domain\", \"uuid\")}}','url': '{{\"IndicatorType\" | picklist(\"URL\", \"uuid\")}}',\n'network-traffic': '{{\"IndicatorType\" | picklist(\"IP Address\", \"uuid\")}}','ipv4-addr': '{{\"IndicatorType\" | picklist(\"IP Address\", \"uuid\")}}','ipv6-addr': '{{\"IndicatorType\" | picklist(\"IP Address\", \"uuid\")}}'}"
               },
               "status": null,
               "top": "120",
               "left": "240",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "uuid": "4cf531ef-aed5-40fe-9d55-6cbf5c2e7e6f",
-              "id": 5037
+              "id": 268
             },
             {
               "@type": "WorkflowStep",
@@ -100,7 +100,7 @@
               "left": "620",
               "stepType": "/api/3/workflow_step_types/12254cf5-5db7-4b1a-8cb1-3af081924b28",
               "uuid": "6d8d5b44-db67-473b-b59e-b044e7717e8b",
-              "id": 5038
+              "id": 269
             },
             {
               "@type": "WorkflowStep",
@@ -126,7 +126,7 @@
                   "validFrom": "{% if vars.item.valid_from %}{{arrow.get(vars.item.valid_from).int_timestamp}}{% endif %}",
                   "confidence": "{% if vars.confidence %}{{ vars.confidence }}{% endif %}",
                   "reputation": "{{vars.reputation_resolved}}",
-                  "sourceData": "{{ vars.item }}",
+                  "sourceData": "{{ vars.item | toJSON}}",
                   "validUntil": "{% if vars.item.valid_until %}{{arrow.get(vars.item.valid_until).int_timestamp}}{% endif %}"
                 },
                 "_showJson": false,
@@ -139,7 +139,7 @@
               "left": "980",
               "stepType": "/api/3/workflow_step_types/7b221880-716b-4726-a2ca-5e568d330b3e",
               "uuid": "0da886a5-54ac-4263-8698-dbc5af2bf17e",
-              "id": 5040
+              "id": 270
             },
             {
               "@type": "WorkflowStep",
@@ -153,7 +153,7 @@
               "left": "1000",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "uuid": "66d05b55-d65b-4764-930e-9c58cf0eac54",
-              "id": 5042
+              "id": 271
             },
             {
               "@type": "WorkflowStep",
@@ -168,7 +168,7 @@
               "left": "420",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "uuid": "ec7f42b0-64bf-4d2e-a035-c42e578f33ac",
-              "id": 5483
+              "id": 272
             }
           ],
           "routes": [
@@ -226,11 +226,11 @@
             "fetch",
             "fortinet-fortiguard-threat-intel-feed"
           ],
-          "id": 1226,
+          "id": 70,
           "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1638795245.146227,
+          "createDate": 1639571286.787832,
           "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1639481336.435727,
+          "modifyDate": 1639659584.475865,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
@@ -242,13 +242,13 @@
           "aliasName": null,
           "tag": null,
           "description": null,
-          "isActive": true,
+          "isActive": false,
           "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1638799997,
+          "lastModifyDate": 1639659574,
           "collection": "/api/3/workflow_collections/6ba7cfdc-0d91-4cfc-a99d-c580c902c356",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/9237320d-13e1-45be-8736-add794fc0023",
@@ -269,7 +269,7 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
               "uuid": "9237320d-13e1-45be-8736-add794fc0023",
-              "id": 5043
+              "id": 273
             },
             {
               "@type": "WorkflowStep",
@@ -297,7 +297,7 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
               "uuid": "0f617041-9b86-4393-aee6-03e5dd185218",
-              "id": 5044
+              "id": 274
             },
             {
               "@type": "WorkflowStep",
@@ -312,7 +312,7 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "uuid": "67aec710-7d88-40ae-b819-2442084deb68",
-              "id": 5045
+              "id": 275
             },
             {
               "@type": "WorkflowStep",
@@ -334,7 +334,7 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
               "uuid": "d500f71a-4cfc-4c69-804a-905317c9ccb6",
-              "id": 5046
+              "id": 276
             },
             {
               "@type": "WorkflowStep",
@@ -357,7 +357,7 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
               "uuid": "6f67fe64-edb0-4364-900c-ce68f7b750f7",
-              "id": 5047
+              "id": 277
             },
             {
               "@type": "WorkflowStep",
@@ -371,7 +371,7 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "uuid": "45d9356b-5b92-4585-b5f4-69d5755707eb",
-              "id": 5048
+              "id": 278
             }
           ],
           "routes": [
@@ -428,11 +428,11 @@
             "ingest",
             "fortinet-fortiguard-threat-intel-feed"
           ],
-          "id": 1227,
+          "id": 71,
           "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1638795245.148556,
+          "createDate": 1639571286.792034,
           "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1638799997.650685,
+          "modifyDate": 1639659584.455287,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
