@@ -13,10 +13,13 @@ import arrow
 import os
 from datetime import datetime
 from connectors.core.connector import get_logger, ConnectorError
-from .utils import create_batch_records
+try:
+    from integrations.crudhub import trigger_ingest_playbook
+except:
+    # ignore. lower FSR version
+    pass
 
 logger = get_logger('fortinet-fortiguard-threat-intel-feed')
-BATCH_SIZE = 2000
 
 class FortiguardThreatIntelligence(object):
     def __init__(self, config, *args, **kwargs):
@@ -59,8 +62,6 @@ def ingest_feeds(config, params, **kwargs):
         api_url = api_url + "&date=" + date
     modified_after = params.get("modified_after")
     create_pb_id = params.get("create_pb_id")
-    parent_wf = kwargs.get('env', {}).get('wf_id')
-    parent_step = kwargs.get('env', {}).get('step_id')
 
     # Request header insertion
     headers = {"Accept": "application/json",
@@ -102,12 +103,7 @@ def ingest_feeds(config, params, **kwargs):
     indicators = data_json["objects"]
     try:
         filtered_indicators = [indicator for indicator in indicators if indicator["type"] == "indicator"]
-        # and arrow.get(indicator["modified"]).int_timestamp >= modified_after]: TODO: check if this is helpful
-        # dedup 
-        seen = set()
-        deduped_indicators = [x for x in filtered_indicators if [x["pattern"] not in seen, seen.add(x["pattern"])][0]]
-        for start_index in range(0, len(deduped_indicators), BATCH_SIZE):
-            create_batch_records(deduped_indicators[start_index: start_index + BATCH_SIZE], create_pb_id, parent_wf, parent_step)
+        trigger_ingest_playbook(filtered_indicators, create_pb_id, parent_env=kwargs.get('env', {}), batch_size=1000, dedup_field="pattern")
         return {"message": "Succesfully triggered playbooks for creating feed records"}
     except Exception as e:
         logger.exception("Import Failed")
