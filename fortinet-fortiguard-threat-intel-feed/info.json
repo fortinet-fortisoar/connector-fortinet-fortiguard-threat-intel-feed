@@ -6,7 +6,7 @@
   "publisher": "Fortinet",
   "cs_approved": true,
   "cs_compatible": true,
-  "category": "CTI",
+  "category": "Threat Intelligence",
   "icon_small_name": "small.png",
   "icon_large_name": "large.png",
   "tags": [
