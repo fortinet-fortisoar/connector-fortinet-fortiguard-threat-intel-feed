@@ -45,7 +45,7 @@ def ingest_feeds(config, params, **kwargs):
     # TODO: pull from config and params
     token = config.get("token")
     if not token:
-        raise ConnectionError("An Access Token is required to download the Threat Intelligence Feeds. Generate your access token from the Fortinet Developer Network Site Toolkit subscription and add it under the connector configuration.")
+        raise ConnectorError("An Access Token is required to download the Threat Intelligence Feeds. Generate your access token from the Fortinet Developer Network Site Toolkit subscription and add it under the connector configuration.")
     
     server_url = config.get('server_url')
     if not server_url.startswith('https://') and not server_url.startswith('http://'):
