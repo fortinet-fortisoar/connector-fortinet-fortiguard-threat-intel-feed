@@ -59,7 +59,7 @@
                   "confidence": "{% if vars.confidence %}{{ vars.confidence }}{% endif %}",
                   "reputation": "{{vars.reputation_resolved}}",
                   "sourceData": "{{ vars.item | toJSON}}",
-                  "typeOfFeed": "{% if 'pattern' in vars.item %}{{ vars.item.pattern.split(\":\")[0][1:] | resolveRange(vars.threat_intelligence_typeofindicator_map)}}{% endif %}",
+                  "typeOfFeed": "{% if 'pattern' in vars.item %}{{ vars.item.pattern.split(\":\")[0][1:] | resolveRange(vars.threat_intel_feeds_typeOfFeed_map)}}{% endif %}",
                   "validUntil": "{{arrow.get(vars.item.valid_until).int_timestamp}}"
                 },
                 "_showJson": false,
@@ -84,7 +84,7 @@
                 "confidence": "50",
                 "reputation": "Suspicious",
                 "reputation_map": "{'Good': '{{\"IndicatorReputation\" | picklist(\"Good\", \"uuid\")}}','Suspicious': '{{\"IndicatorReputation\" | picklist(\"Suspicious\", \"uuid\")}}','Malicious': '{{\"IndicatorReputation\" | picklist(\"Malicious\", \"uuid\")}}','No Reputation Available': '{{\"IndicatorReputation\" | picklist(\"No Reputation Available\", \"uuid\")}}','TBD': '{{\"IndicatorReputation\" | picklist(\"TBD\", \"uuid\")}}'}",
-                "threat_intelligence_typeofindicator_map": "{'domain-name': '{{\"IndicatorType\" | picklist(\"Domain\", \"uuid\")}}','url': '{{\"IndicatorType\" | picklist(\"URL\", \"uuid\")}}',\n'network-traffic': '{{\"IndicatorType\" | picklist(\"IP Address\", \"uuid\")}}','ipv4-addr': '{{\"IndicatorType\" | picklist(\"IP Address\", \"uuid\")}}','ipv6-addr': '{{\"IndicatorType\" | picklist(\"IP Address\", \"uuid\")}}'}"
+                "threat_intel_feeds_typeOfFeed_map": "{'domain-name': '{{\"ThreatIntelFeedType\" | picklist(\"Domain\", \"uuid\")}}','url': '{{\"ThreatIntelFeedType\" | picklist(\"URL\", \"uuid\")}}',\n'network-traffic': '{{\"ThreatIntelFeedType\" | picklist(\"IP Address\", \"uuid\")}}','ipv4-addr': '{{\"ThreatIntelFeedType\" | picklist(\"IP Address\", \"uuid\")}}','ipv6-addr': '{{\"ThreatIntelFeedType\" | picklist(\"IP Address\", \"uuid\")}}'}"
               },
               "status": null,
               "top": "120",
